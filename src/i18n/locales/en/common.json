@@ -1,0 +1,143 @@
+{
+  "brand": {
+    "name": "UMINE",
+    "tagline": "AI Headhunting"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "busquedas": "Searches",
+    "entrevistas": "Interviews",
+    "analytics": "Analytics",
+    "nuevaBusqueda": "New Search"
+  },
+  "buttons": {
+    "ver": "View",
+    "entrevistar": "Interview",
+    "terna": "Shortlist",
+    "volver": "Back",
+    "anterior": "Previous",
+    "siguiente": "Next",
+    "verTodas": "View all",
+    "iniciarSesion": "Sign in",
+    "empezarGratis": "Start for free",
+    "resetear": "Reset",
+    "enviarEmail": "Send Email",
+    "descartar": "Reject",
+    "agregarTerna": "Add to Shortlist",
+    "iniciarEntrevista": "Start Interview",
+    "agregarEtapa": "Add stage",
+    "generarConIA": "Generate with AI",
+    "generando": "Generating...",
+    "sugerirConIA": "Suggest with AI",
+    "interpretarConIA": "Interpret with AI",
+    "generarPerfilCompleto": "Generate full profile",
+    "generarPreguntasConIA": "Generate questions with AI",
+    "lanzarBusquedaConIA": "Launch AI Search",
+    "verPerfil": "View profile"
+  },
+  "status": {
+    "nuevo": "New",
+    "encontrado": "Found",
+    "contactado": "Contacted",
+    "email_enviado": "Email sent",
+    "cv_recibido": "CV Received",
+    "evaluado": "Evaluated",
+    "en_entrevista": "In interview",
+    "en_terna": "Shortlisted",
+    "descartado": "Rejected",
+    "seleccionado": "Selected",
+    "buscando": "Searching",
+    "evaluando": "Evaluating",
+    "terna_lista": "Shortlist ready",
+    "completada": "Completed",
+    "en_curso": "In progress",
+    "pendiente": "Pending"
+  },
+  "seniority": {
+    "Junior": "Junior",
+    "Semi-Senior": "Mid-Level",
+    "Senior": "Senior",
+    "Lead": "Lead",
+    "Manager": "Manager",
+    "Director": "Director",
+    "VP": "VP",
+    "C-Level": "C-Level"
+  },
+  "experiencia": {
+    "0-1 anos": "0-1 years",
+    "1-3 anos": "1-3 years",
+    "3-5 anos": "3-5 years",
+    "5-8 anos": "5-8 years",
+    "8-10 anos": "8-10 years",
+    "10+": "10+"
+  },
+  "modalidad": {
+    "Remoto": "Remote",
+    "Hibrido": "Hybrid",
+    "Presencial": "On-site"
+  },
+  "idiomas": {
+    "Espanol": "Spanish",
+    "Ingles": "English",
+    "Portugues": "Portuguese",
+    "Frances": "French",
+    "Aleman": "German"
+  },
+  "competencias": {
+    "comunicacion": "Communication",
+    "experiencia": "Experience",
+    "tecnico": "Technical",
+    "liderazgo": "Leadership",
+    "cultura": "Culture",
+    "culturaFit": "Culture Fit",
+    "motivacion": "Motivation",
+    "resolucion": "Problem Solving",
+    "equipo": "Teamwork",
+    "profesionalismo": "Professionalism",
+    "comunicacionVerbal": "Verbal communication",
+    "motivacionYCultura": "Motivation & culture fit",
+    "experienciaRelevante": "Relevant experience",
+    "trabajoEnEquipo": "Teamwork",
+    "habilidadesTecnicas": "Technical skills",
+    "resolucionDeProblemas": "Problem solving"
+  },
+  "recommendations": {
+    "AVANZAR": "ADVANCE",
+    "RECHAZAR": "REJECT",
+    "EVALUAR": "EVALUATE"
+  },
+  "emailScore": {
+    "Verificado": "Verified"
+  },
+  "labels": {
+    "candidatos": "candidates",
+    "enTerna": "shortlisted",
+    "habilidades": "Skills",
+    "scoreTotal": "Total Score /10",
+    "scoreTotalLower": "Total score /10",
+    "score": "Score",
+    "linkedin": "LinkedIn",
+    "fortalezas": "Strengths",
+    "areasDeMejora": "Areas for improvement",
+    "sugeridas": "Suggested:",
+    "todasLasIndustrias": "All industries",
+    "empresasSeleccionadas": "{{count}} company selected",
+    "empresasSeleccionadas_plural": "{{count}} companies selected",
+    "empresasDisponibles": "99 leading companies in Chile available",
+    "noEmpresasEncontradas": "No companies found",
+    "agregarEmpresaPersonalizada": "+ Add \"{{query}}\" as a custom company"
+  },
+  "stageTypes": {
+    "avatar_ia": "AI Avatar",
+    "avatar_ia_rrhh": "AI Avatar + HR",
+    "hiring_manager": "Hiring Manager",
+    "panel": "Panel",
+    "tecnica": "Technical"
+  },
+  "footer": {
+    "copyright": "2026 UMINE. AI-powered headhunting.",
+    "privacidad": "Privacy",
+    "terminos": "Terms",
+    "contacto": "Contact"
+  }
+}

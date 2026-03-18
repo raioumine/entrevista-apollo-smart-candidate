@@ -1,0 +1,21 @@
+{
+  "detail": {
+    "notFound": "Candidato no encontrado.",
+    "evaluacionIA": "Evaluacion IA",
+    "historialEntrevistas": "Historial de Entrevistas",
+    "cargoEn": "{{cargo}} en {{empresa}}",
+    "scoreLabel": "Score: {{score}}/10"
+  },
+  "terna": {
+    "title": "Terna Final",
+    "subtitle": "Los {{count}} mejores candidatos seleccionados por la IA",
+    "volverAlPipeline": "Volver al pipeline",
+    "iniciarEntrevistasParaTerna": "Iniciar entrevistas para terna",
+    "tablaComparativa": "Tabla Comparativa",
+    "competencia": "Competencia",
+    "total": "TOTAL"
+  },
+  "empresaSelector": {
+    "buscarPlaceholder": "Buscar empresa o escribir nombre..."
+  }
+}

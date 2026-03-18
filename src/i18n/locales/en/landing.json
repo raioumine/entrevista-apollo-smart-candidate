@@ -1,0 +1,70 @@
+{
+  "hero": {
+    "badge": "Powered by advanced AI",
+    "titleLine1": "Find the perfect candidate",
+    "titleHighlight": "with AI",
+    "titleLine2": "in minutes",
+    "subtitle": "Automate candidate prospecting, evaluation, and interviews. From search to final shortlist, all powered by artificial intelligence.",
+    "ctaPrimary": "Start Search",
+    "ctaSecondary": "See how it works"
+  },
+  "stats": {
+    "configTime": "< 5 min",
+    "configLabel": "Search configuration",
+    "empresas": "500+",
+    "empresasLabel": "Companies in database",
+    "competencias": "6",
+    "competenciasLabel": "Competencies evaluated by AI",
+    "precision": "95%",
+    "precisionLabel": "Scoring accuracy"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "subtitle": "3 simple steps to find your ideal candidate",
+    "step1": {
+      "title": "Set up your search",
+      "desc": "Define the role, industry, skills, experience, and configure interview stages. AI handles the rest."
+    },
+    "step2": {
+      "title": "AI searches and evaluates",
+      "desc": "Our AI finds candidates, verifies emails, evaluates CVs and generates industry-validated scoring."
+    },
+    "step3": {
+      "title": "AI Avatar interviews",
+      "desc": "Sofia, our AI avatar, conducts video interviews. Generates detailed scorecards and recommends the final shortlist."
+    }
+  },
+  "features": {
+    "title": "Everything you need",
+    "subtitle": "A complete platform for modern headhunting",
+    "prospeccion": {
+      "title": "Automated prospecting",
+      "desc": "Find candidates and verified emails automatically in your target industry."
+    },
+    "coldEmail": {
+      "title": "Smart cold email",
+      "desc": "Personalized emails sent automatically requesting CVs from ideal candidates."
+    },
+    "scoring": {
+      "title": "Validated AI scoring",
+      "desc": "Competency-based evaluation with a professional headhunting scoring system."
+    },
+    "terna": {
+      "title": "Automated shortlist",
+      "desc": "AI selects the best candidates and generates a comparative shortlist."
+    },
+    "entrevistas": {
+      "title": "Avatar interviews",
+      "desc": "Sofia, an AI avatar with 12 years of virtual HR experience, interviews candidates on video."
+    },
+    "multiEtapa": {
+      "title": "Configurable multi-stage",
+      "desc": "Define how many interviews, who participates in each one, and which competencies to evaluate."
+    }
+  },
+  "cta": {
+    "title": "Ready to find top talent?",
+    "subtitle": "Set up your first search in under 5 minutes. No credit card required.",
+    "button": "Get started"
+  }
+}

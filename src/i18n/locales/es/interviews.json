@@ -1,0 +1,32 @@
+{
+  "title": "Entrevistas",
+  "subtitle": "Historial de entrevistas realizadas con avatar IA y equipo RRHH",
+  "labels": {
+    "score": "SCORE",
+    "tipo": "TIPO",
+    "fecha": "FECHA",
+    "recomendacion": "RECOMENDACION"
+  },
+  "stats": {
+    "total": "Total entrevistas",
+    "completadas": "Completadas",
+    "pendientes": "Pendientes",
+    "enCurso": "En curso"
+  },
+  "filters": {
+    "todas": "Todas",
+    "completadas": "Completadas",
+    "pendientes": "Pendientes",
+    "enCurso": "En curso"
+  },
+  "empty": {
+    "title": "Sin entrevistas",
+    "description": "Las entrevistas con IA aparecerán aquí cuando se programen",
+    "filteredTitle": "Sin resultados",
+    "filteredDescription": "No hay entrevistas con el filtro seleccionado"
+  },
+  "scorecard": {
+    "fortalezas": "Fortalezas detectadas",
+    "redFlags": "Red flags"
+  }
+}

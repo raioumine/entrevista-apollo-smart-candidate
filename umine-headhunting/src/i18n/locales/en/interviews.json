@@ -1,0 +1,32 @@
+{
+  "title": "Interviews",
+  "subtitle": "Interview history with AI avatar and HR team",
+  "labels": {
+    "score": "SCORE",
+    "tipo": "TYPE",
+    "fecha": "DATE",
+    "recomendacion": "RECOMMENDATION"
+  },
+  "stats": {
+    "total": "Total interviews",
+    "completadas": "Completed",
+    "pendientes": "Pending",
+    "enCurso": "In progress"
+  },
+  "filters": {
+    "todas": "All",
+    "completadas": "Completed",
+    "pendientes": "Pending",
+    "enCurso": "In progress"
+  },
+  "empty": {
+    "title": "No interviews",
+    "description": "AI interviews will appear here once scheduled",
+    "filteredTitle": "No results",
+    "filteredDescription": "No interviews match the selected filter"
+  },
+  "scorecard": {
+    "fortalezas": "Detected strengths",
+    "redFlags": "Red flags"
+  }
+}

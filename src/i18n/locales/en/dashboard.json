@@ -1,0 +1,37 @@
+{
+  "welcome": {
+    "title": "Welcome to UMINE",
+    "subtitle": "Your AI-powered headhunting platform. Here's a summary of your activity."
+  },
+  "stats": {
+    "busquedasActivas": "Active searches",
+    "candidatosEnPipeline": "Candidates in pipeline",
+    "enTerna": "Shortlisted",
+    "entrevistasCompletadas": "Interviews completed"
+  },
+  "sections": {
+    "busquedasActivas": "Active Searches",
+    "actividadReciente": "Recent Activity",
+    "pipeline": "Pipeline"
+  },
+  "activity": {
+    "agregadaATerna": "Camila Rodriguez added to shortlist",
+    "entrevistaCompletada": "Interview completed: Matias Herrera",
+    "candidatosEvaluados": "5 candidates evaluated by AI",
+    "coldEmailsEnviados": "9 cold emails sent",
+    "apolloEncontro": "Apollo found 9 candidates",
+    "hace2h": "2h ago",
+    "hace3h": "3h ago",
+    "hace5h": "5h ago",
+    "hace6h": "6h ago",
+    "hace8h": "8h ago"
+  },
+  "pipeline": {
+    "encontrados": "Found",
+    "emailEnviado": "Email sent",
+    "cvRecibido": "CV Received",
+    "evaluados": "Evaluated",
+    "enTerna": "Shortlisted",
+    "descartados": "Rejected"
+  }
+}

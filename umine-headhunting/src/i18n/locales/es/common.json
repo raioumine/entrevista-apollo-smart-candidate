@@ -1,0 +1,143 @@
+{
+  "brand": {
+    "name": "UMINE",
+    "tagline": "Headhunting IA"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "busquedas": "Busquedas",
+    "entrevistas": "Entrevistas",
+    "analytics": "Analytics",
+    "nuevaBusqueda": "Nueva Busqueda"
+  },
+  "buttons": {
+    "ver": "Ver",
+    "entrevistar": "Entrevistar",
+    "terna": "Terna",
+    "volver": "Volver",
+    "anterior": "Anterior",
+    "siguiente": "Siguiente",
+    "verTodas": "Ver todas",
+    "iniciarSesion": "Iniciar sesion",
+    "empezarGratis": "Empezar gratis",
+    "resetear": "Resetear",
+    "enviarEmail": "Enviar Email",
+    "descartar": "Descartar",
+    "agregarTerna": "Agregar a Terna",
+    "iniciarEntrevista": "Iniciar Entrevista",
+    "agregarEtapa": "Agregar etapa",
+    "generarConIA": "Generar con IA",
+    "generando": "Generando...",
+    "sugerirConIA": "Sugerir con IA",
+    "interpretarConIA": "Interpretar con IA",
+    "generarPerfilCompleto": "Generar perfil completo",
+    "generarPreguntasConIA": "Generar preguntas con IA",
+    "lanzarBusquedaConIA": "Lanzar Busqueda con IA",
+    "verPerfil": "Ver perfil"
+  },
+  "status": {
+    "nuevo": "Nuevo",
+    "encontrado": "Encontrado",
+    "contactado": "Contactado",
+    "email_enviado": "Email enviado",
+    "cv_recibido": "CV Recibido",
+    "evaluado": "Evaluado",
+    "en_entrevista": "En entrevista",
+    "en_terna": "En terna",
+    "descartado": "Descartado",
+    "seleccionado": "Seleccionado",
+    "buscando": "Buscando",
+    "evaluando": "Evaluando",
+    "terna_lista": "Terna lista",
+    "completada": "Completada",
+    "en_curso": "En curso",
+    "pendiente": "Pendiente"
+  },
+  "seniority": {
+    "Junior": "Junior",
+    "Semi-Senior": "Semi-Senior",
+    "Senior": "Senior",
+    "Lead": "Lead",
+    "Manager": "Manager",
+    "Director": "Director",
+    "VP": "VP",
+    "C-Level": "C-Level"
+  },
+  "experiencia": {
+    "0-1 anos": "0-1 anos",
+    "1-3 anos": "1-3 anos",
+    "3-5 anos": "3-5 anos",
+    "5-8 anos": "5-8 anos",
+    "8-10 anos": "8-10 anos",
+    "10+": "10+"
+  },
+  "modalidad": {
+    "Remoto": "Remoto",
+    "Hibrido": "Hibrido",
+    "Presencial": "Presencial"
+  },
+  "idiomas": {
+    "Espanol": "Espanol",
+    "Ingles": "Ingles",
+    "Portugues": "Portugues",
+    "Frances": "Frances",
+    "Aleman": "Aleman"
+  },
+  "competencias": {
+    "comunicacion": "Comunicacion",
+    "experiencia": "Experiencia",
+    "tecnico": "Tecnico",
+    "liderazgo": "Liderazgo",
+    "cultura": "Cultura",
+    "culturaFit": "Cultura Fit",
+    "motivacion": "Motivacion",
+    "resolucion": "Resolucion",
+    "equipo": "Equipo",
+    "profesionalismo": "Profesionalismo",
+    "comunicacionVerbal": "Comunicacion verbal",
+    "motivacionYCultura": "Motivacion y cultura",
+    "experienciaRelevante": "Experiencia relevante",
+    "trabajoEnEquipo": "Trabajo en equipo",
+    "habilidadesTecnicas": "Habilidades tecnicas",
+    "resolucionDeProblemas": "Resolucion de problemas"
+  },
+  "recommendations": {
+    "AVANZAR": "AVANZAR",
+    "RECHAZAR": "RECHAZAR",
+    "EVALUAR": "EVALUAR"
+  },
+  "emailScore": {
+    "Verificado": "Verificado"
+  },
+  "labels": {
+    "candidatos": "candidatos",
+    "enTerna": "en terna",
+    "habilidades": "Habilidades",
+    "scoreTotal": "Score Total /10",
+    "scoreTotalLower": "Score total /10",
+    "score": "Score",
+    "linkedin": "LinkedIn",
+    "fortalezas": "Fortalezas",
+    "areasDeMejora": "Areas de mejora",
+    "sugeridas": "Sugeridas:",
+    "todasLasIndustrias": "Todas las industrias",
+    "empresasSeleccionadas": "{{count}} empresa seleccionada",
+    "empresasSeleccionadas_plural": "{{count}} empresas seleccionadas",
+    "empresasDisponibles": "99 empresas lideres de Chile disponibles",
+    "noEmpresasEncontradas": "No se encontraron empresas",
+    "agregarEmpresaPersonalizada": "+ Agregar \"{{query}}\" como empresa personalizada"
+  },
+  "stageTypes": {
+    "avatar_ia": "Avatar IA",
+    "avatar_ia_rrhh": "Avatar IA + RRHH",
+    "hiring_manager": "Hiring Manager",
+    "panel": "Panel",
+    "tecnica": "Tecnica"
+  },
+  "footer": {
+    "copyright": "2026 UMINE. Headhunting impulsado por IA.",
+    "privacidad": "Privacidad",
+    "terminos": "Terminos",
+    "contacto": "Contacto"
+  }
+}

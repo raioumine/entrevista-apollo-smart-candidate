@@ -1,0 +1,19 @@
+{
+  "title": "Analytics",
+  "subtitle": "Metricas y rendimiento de tus busquedas de headhunting",
+  "stats": {
+    "busquedas": "Busquedas",
+    "candidatos": "Candidatos",
+    "scorePromedio": "Score promedio",
+    "enTerna": "En terna",
+    "entrevistas": "Entrevistas",
+    "conversion": "Conversion"
+  },
+  "charts": {
+    "distribucionScores": "Distribucion de Scores",
+    "funnelPipeline": "Funnel del Pipeline",
+    "competenciasPromedio": "Competencias Promedio",
+    "topCandidatos": "Top Candidatos",
+    "timelineEntrevistas": "Timeline de Entrevistas"
+  }
+}

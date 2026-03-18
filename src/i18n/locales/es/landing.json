@@ -1,0 +1,70 @@
+{
+  "hero": {
+    "badge": "Powered by IA avanzada",
+    "titleLine1": "Encuentra al candidato",
+    "titleHighlight": "ideal con IA",
+    "titleLine2": "en minutos",
+    "subtitle": "Automatiza la prospeccion, evaluacion y entrevistas de candidatos. Desde la busqueda hasta la terna final, todo impulsado por inteligencia artificial.",
+    "ctaPrimary": "Empezar Busqueda",
+    "ctaSecondary": "Ver como funciona"
+  },
+  "stats": {
+    "configTime": "< 5 min",
+    "configLabel": "Configuracion de busqueda",
+    "empresas": "500+",
+    "empresasLabel": "Empresas en base de datos",
+    "competencias": "6",
+    "competenciasLabel": "Competencias evaluadas por IA",
+    "precision": "95%",
+    "precisionLabel": "Precision en scoring"
+  },
+  "howItWorks": {
+    "title": "Como funciona",
+    "subtitle": "3 pasos simples para encontrar tu candidato ideal",
+    "step1": {
+      "title": "Configura tu busqueda",
+      "desc": "Define puesto, industria, habilidades, experiencia y configura las etapas de entrevistas. La IA hace el resto."
+    },
+    "step2": {
+      "title": "IA busca y evalua",
+      "desc": "Nuestra IA encuentra candidatos, verifica emails y evalua perfiles generando un scoring validado por la industria."
+    },
+    "step3": {
+      "title": "Entrevistas con Avatar IA",
+      "desc": "Sofia, nuestro avatar IA, realiza entrevistas en video. Genera scorecards detallados y recomienda la terna final."
+    }
+  },
+  "features": {
+    "title": "Todo lo que necesitas",
+    "subtitle": "Una plataforma completa para el headhunting moderno",
+    "prospeccion": {
+      "title": "Prospeccion automatica",
+      "desc": "Encuentra candidatos y emails verificados automaticamente en tu industria objetivo."
+    },
+    "coldEmail": {
+      "title": "Cold email inteligente",
+      "desc": "Emails personalizados enviados automaticamente solicitando CVs a candidatos ideales."
+    },
+    "scoring": {
+      "title": "Scoring IA validado",
+      "desc": "Evaluacion por competencias con sistema de puntuacion de headhunting profesional."
+    },
+    "terna": {
+      "title": "Terna automatica",
+      "desc": "La IA selecciona los mejores candidatos y genera una terna comparativa."
+    },
+    "entrevistas": {
+      "title": "Entrevistas con Avatar",
+      "desc": "Sofia, avatar IA con 12 anos de experiencia virtual en RRHH, entrevista candidatos en video."
+    },
+    "multiEtapa": {
+      "title": "Multi-etapa configurable",
+      "desc": "Define cuantas entrevistas, quien participa en cada una y que competencias evaluar."
+    }
+  },
+  "cta": {
+    "title": "Listo para encontrar talento?",
+    "subtitle": "Configura tu primera busqueda en menos de 5 minutos. Sin tarjeta de credito.",
+    "button": "Empezar ahora"
+  }
+}

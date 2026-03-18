@@ -1,0 +1,170 @@
+import type { Candidate } from "../types/candidate";
+import type { SearchConfig } from "../types/search";
+import type { Interview } from "../types/interview";
+
+export const MOCK_SEARCH: SearchConfig = {
+  id: "demo-1",
+  puesto: "SDR Senior",
+  industria: "SaaS / Software",
+  pais: "Chile",
+  empresasReferencia: ["Codelco"],
+  anosExperiencia: "3-5 anos",
+  seniority: "Senior",
+  habilidades: ["Salesforce", "Cold calling", "B2B SaaS", "HubSpot"],
+  idiomas: ["Espanol", "Ingles"],
+  modalidad: "Hibrido",
+  cantidadCandidatos: 25,
+  enviarColdEmail: true,
+  plantillaEmail: "",
+  etapasEntrevista: [
+    { orden: 1, nombre: "Screening IA", tipo: "avatar_ia", duracionMinutos: 15, competencias: ["Comunicacion verbal", "Motivacion y cultura"] },
+    { orden: 2, nombre: "Entrevista RRHH", tipo: "avatar_ia_rrhh", duracionMinutos: 20, competencias: ["Experiencia relevante", "Trabajo en equipo"] },
+    { orden: 3, nombre: "Hiring Manager", tipo: "hiring_manager", duracionMinutos: 30, competencias: ["Habilidades tecnicas", "Liderazgo"] },
+  ],
+  estado: "evaluando",
+  createdAt: "2026-02-23T10:00:00Z",
+};
+
+export const MOCK_CANDIDATES: Candidate[] = [
+  {
+    id: "c1", searchId: "demo-1", nombre: "Camila", apellido: "Rodriguez",
+    empresa: "TechVision SpA", cargo: "SDR Lead",
+    email: "camila.rodriguez@techvision.cl", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/camilarodriguez", ubicacion: "Santiago, Chile",
+    estado: "en_terna",
+    scoreIA: { total: 8.7, comunicacion: 9, experiencia: 8, habilidadesTecnicas: 9, liderazgo: 8, culturaFit: 9, motivacion: 9, recomendacion: "AVANZAR", resumen: "Candidata excepcional con solida experiencia en ventas B2B SaaS. Domina Salesforce y HubSpot. Liderazgo demostrado gestionando equipo de 5 SDRs.", fortalezas: ["Liderazgo en ventas", "Dominio de CRM", "Track record probado"], debilidades: ["Poca experiencia en sector minero"] },
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c2", searchId: "demo-1", nombre: "Matias", apellido: "Herrera",
+    empresa: "DataCore Chile", cargo: "Senior SDR",
+    email: "mherrera@datacore.cl", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/matiasherrera", ubicacion: "Santiago, Chile",
+    estado: "en_terna",
+    scoreIA: { total: 8.2, comunicacion: 8, experiencia: 9, habilidadesTecnicas: 8, liderazgo: 7, culturaFit: 8, motivacion: 9, recomendacion: "AVANZAR", resumen: "Profesional con 5 anos de experiencia en prospeccion B2B. Conocimiento profundo del mercado chileno. Fuerte en cold outreach.", fortalezas: ["Experiencia B2B extensa", "Conocimiento mercado local", "Alto cierre de deals"], debilidades: ["Menor experiencia en herramientas tecnicas avanzadas"] },
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c3", searchId: "demo-1", nombre: "Valentina", apellido: "Soto",
+    empresa: "CloudBridge", cargo: "SDR Manager",
+    email: "vsoto@cloudbridge.io", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/valentinasoto", ubicacion: "Valparaiso, Chile",
+    estado: "en_terna",
+    scoreIA: { total: 7.8, comunicacion: 8, experiencia: 7, habilidadesTecnicas: 8, liderazgo: 9, culturaFit: 7, motivacion: 8, recomendacion: "AVANZAR", resumen: "Lider natural con experiencia gestionando equipos de ventas. Transicion desde marketing a ventas le da vision integral.", fortalezas: ["Liderazgo de equipos", "Vision estrategica", "Bilingue"], debilidades: ["Transicion reciente a ventas directas"] },
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c4", searchId: "demo-1", nombre: "Diego", apellido: "Morales",
+    empresa: "FinApp Latam", cargo: "SDR",
+    email: "dmorales@finapp.com", emailScore: "Sugerido",
+    linkedinUrl: "https://linkedin.com/in/diegomorales", ubicacion: "Santiago, Chile",
+    estado: "evaluado",
+    scoreIA: { total: 7.2, comunicacion: 7, experiencia: 7, habilidadesTecnicas: 8, liderazgo: 6, culturaFit: 8, motivacion: 7, recomendacion: "REVISAR", resumen: "Buen perfil tecnico pero con experiencia limitada en ventas complejas. Potencial de crecimiento.", fortalezas: ["Fuerte en herramientas", "Motivacion visible"], debilidades: ["Experiencia limitada en ventas B2B", "Sin experiencia en liderazgo"] },
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c5", searchId: "demo-1", nombre: "Ana", apellido: "Martinez",
+    empresa: "GreenTech Solutions", cargo: "Business Development Rep",
+    email: "ana@greentech.cl", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/anamartinez", ubicacion: "Santiago, Chile",
+    estado: "evaluado",
+    scoreIA: { total: 6.8, comunicacion: 8, experiencia: 6, habilidadesTecnicas: 6, liderazgo: 7, culturaFit: 7, motivacion: 7, recomendacion: "REVISAR", resumen: "Comunicadora eficaz con background en desarrollo de negocio. Experiencia en SaaS pero no especificamente en SDR.", fortalezas: ["Excelente comunicacion", "Networking"], debilidades: ["Poca experiencia SDR especifica", "Sin Salesforce"] },
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c6", searchId: "demo-1", nombre: "Carlos", apellido: "Ruiz",
+    empresa: "Nexo Digital", cargo: "Sales Executive",
+    email: "cruiz@nexo.cl", emailScore: "Sugerido",
+    linkedinUrl: "https://linkedin.com/in/carlosruiz", ubicacion: "Concepcion, Chile",
+    estado: "email_enviado",
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c7", searchId: "demo-1", nombre: "Sofia", apellido: "Vega",
+    empresa: "RetailMax", cargo: "Inside Sales",
+    email: "sofia.vega@retailmax.cl", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/sofiavega", ubicacion: "Santiago, Chile",
+    estado: "cv_recibido",
+    fechaScraping: "2026-02-22",
+  },
+  {
+    id: "c8", searchId: "demo-1", nombre: "Felipe", apellido: "Gonzalez",
+    empresa: "InnovaChile", cargo: "SDR Junior",
+    email: "fgonzalez@innovachile.cl", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/felipegonzalez", ubicacion: "Santiago, Chile",
+    estado: "encontrado",
+    fechaScraping: "2026-02-23",
+  },
+  {
+    id: "c9", searchId: "demo-1", nombre: "Isidora", apellido: "Perez",
+    empresa: "SaaSpoint", cargo: "Account Executive",
+    email: "iperez@saaspoint.io", emailScore: "Verificado",
+    linkedinUrl: "https://linkedin.com/in/isidoraperez", ubicacion: "Santiago, Chile",
+    estado: "descartado",
+    scoreIA: { total: 4.5, comunicacion: 5, experiencia: 4, habilidadesTecnicas: 4, liderazgo: 4, culturaFit: 5, motivacion: 5, recomendacion: "RECHAZAR", resumen: "Perfil no alineado con los requisitos del puesto. Experiencia insuficiente en SDR.", fortalezas: ["Motivacion"], debilidades: ["Sin experiencia SDR", "Sin herramientas CRM", "Perfil muy junior"] },
+    fechaScraping: "2026-02-22",
+  },
+];
+
+export const MOCK_INTERVIEWS: Interview[] = [
+  {
+    id: "int1", candidatoId: "c1", candidatoNombre: "Camila Rodriguez",
+    puesto: "SDR Senior", etapa: 1, etapaNombre: "Screening IA", tipo: "Avatar IA",
+    estado: "completada", fecha: "2026-02-23",
+    scorecard: { comunicacion: 9, experiencia: 8, resolucion: 8, equipo: 8, motivacion: 9, profesionalismo: 9, promedio: 8.5, recomendacion: "AVANZAR", resumen: "Camila demostro excelentes habilidades de comunicacion y una fuerte motivacion por el puesto. Su experiencia en ventas B2B es solida.", fortalezas: "Comunicacion clara, experiencia en SaaS, liderazgo natural", redFlags: "Ninguna detectada" },
+  },
+  {
+    id: "int2", candidatoId: "c2", candidatoNombre: "Matias Herrera",
+    puesto: "SDR Senior", etapa: 1, etapaNombre: "Screening IA", tipo: "Avatar IA",
+    estado: "completada", fecha: "2026-02-23",
+    scorecard: { comunicacion: 8, experiencia: 9, resolucion: 7, equipo: 7, motivacion: 8, profesionalismo: 8, promedio: 7.8, recomendacion: "AVANZAR", resumen: "Matias tiene una solida trayectoria en prospeccion B2B. Conoce bien el mercado chileno.", fortalezas: "Experiencia profunda en ventas, conocimiento de mercado", redFlags: "Podria mejorar en resolucion de conflictos" },
+  },
+  {
+    id: "int3", candidatoId: "c3", candidatoNombre: "Valentina Soto",
+    puesto: "SDR Senior", etapa: 1, etapaNombre: "Screening IA", tipo: "Avatar IA",
+    estado: "pendiente", fecha: "2026-02-24",
+  },
+  {
+    id: "int4", candidatoId: "c1", candidatoNombre: "Camila Rodriguez",
+    puesto: "SDR Senior", etapa: 2, etapaNombre: "Entrevista RRHH", tipo: "Avatar IA + RRHH",
+    estado: "completada", fecha: "2026-02-25",
+    scorecard: { comunicacion: 9, experiencia: 9, resolucion: 8, equipo: 9, motivacion: 9, profesionalismo: 9, promedio: 8.8, recomendacion: "AVANZAR", resumen: "Segunda entrevista excelente. Camila demostro gran afinidad cultural y capacidad de trabajo en equipo. Confirma su posicion como candidata top.", fortalezas: "Cultura fit excepcional, experiencia relevante, vision estrategica", redFlags: "Ninguna" },
+  },
+  {
+    id: "int5", candidatoId: "c4", candidatoNombre: "Diego Morales",
+    puesto: "SDR Senior", etapa: 1, etapaNombre: "Screening IA", tipo: "Avatar IA",
+    estado: "completada", fecha: "2026-02-24",
+    scorecard: { comunicacion: 7, experiencia: 6, resolucion: 7, equipo: 7, motivacion: 8, profesionalismo: 7, promedio: 7.0, recomendacion: "REVISAR", resumen: "Diego muestra motivacion pero su experiencia en ventas B2B complejas es limitada. Tiene potencial de crecimiento.", fortalezas: "Alta motivacion, buen manejo de herramientas", redFlags: "Experiencia insuficiente en ventas enterprise" },
+  },
+  {
+    id: "int6", candidatoId: "c2", candidatoNombre: "Matias Herrera",
+    puesto: "SDR Senior", etapa: 2, etapaNombre: "Entrevista RRHH", tipo: "Avatar IA + RRHH",
+    estado: "en_curso", fecha: "2026-02-26",
+  },
+  {
+    id: "int7", candidatoId: "c5", candidatoNombre: "Ana Martinez",
+    puesto: "SDR Senior", etapa: 1, etapaNombre: "Screening IA", tipo: "Avatar IA",
+    estado: "pendiente", fecha: "2026-02-27",
+  },
+];
+
+export const MOCK_SEARCHES: SearchConfig[] = [
+  MOCK_SEARCH,
+  {
+    id: "demo-2",
+    puesto: "Data Engineer",
+    industria: "Fintech",
+    pais: "Chile",
+    anosExperiencia: "5-8 anos",
+    seniority: "Senior",
+    habilidades: ["Python", "SQL", "AWS", "Spark"],
+    idiomas: ["Espanol", "Ingles"],
+    modalidad: "Remoto",
+    cantidadCandidatos: 50,
+    enviarColdEmail: true,
+    plantillaEmail: "",
+    etapasEntrevista: [],
+    estado: "buscando",
+    createdAt: "2026-02-22T14:00:00Z",
+  },
+];

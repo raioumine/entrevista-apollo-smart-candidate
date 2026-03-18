@@ -1,0 +1,21 @@
+{
+  "detail": {
+    "notFound": "Candidate not found.",
+    "evaluacionIA": "AI Evaluation",
+    "historialEntrevistas": "Interview History",
+    "cargoEn": "{{cargo}} at {{empresa}}",
+    "scoreLabel": "Score: {{score}}/10"
+  },
+  "terna": {
+    "title": "Final Shortlist",
+    "subtitle": "The top {{count}} candidates selected by AI",
+    "volverAlPipeline": "Back to pipeline",
+    "iniciarEntrevistasParaTerna": "Start shortlist interviews",
+    "tablaComparativa": "Comparison Table",
+    "competencia": "Competency",
+    "total": "TOTAL"
+  },
+  "empresaSelector": {
+    "buscarPlaceholder": "Search company or type a name..."
+  }
+}

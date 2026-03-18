@@ -1,0 +1,37 @@
+{
+  "welcome": {
+    "title": "Bienvenido a UMINE",
+    "subtitle": "Tu plataforma de headhunting impulsada por IA. Aqui tienes un resumen de tu actividad."
+  },
+  "stats": {
+    "busquedasActivas": "Busquedas activas",
+    "candidatosEnPipeline": "Candidatos en pipeline",
+    "enTerna": "En terna",
+    "entrevistasCompletadas": "Entrevistas completadas"
+  },
+  "sections": {
+    "busquedasActivas": "Busquedas Activas",
+    "actividadReciente": "Actividad Reciente",
+    "pipeline": "Pipeline"
+  },
+  "activity": {
+    "agregadaATerna": "Camila Rodriguez agregada a terna",
+    "entrevistaCompletada": "Entrevista completada: Matias Herrera",
+    "candidatosEvaluados": "5 candidatos evaluados por IA",
+    "coldEmailsEnviados": "9 cold emails enviados",
+    "apolloEncontro": "Apollo encontro 9 candidatos",
+    "hace2h": "Hace 2h",
+    "hace3h": "Hace 3h",
+    "hace5h": "Hace 5h",
+    "hace6h": "Hace 6h",
+    "hace8h": "Hace 8h"
+  },
+  "pipeline": {
+    "encontrados": "Encontrados",
+    "emailEnviado": "Email enviado",
+    "cvRecibido": "CV Recibido",
+    "evaluados": "Evaluados",
+    "enTerna": "En Terna",
+    "descartados": "Descartados"
+  }
+}
