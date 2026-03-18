@@ -1,6 +1,6 @@
 {
   "name": "v18.0-Smart Apollo Searcher (50→20)",
-  "description": "Advanced Apollo search: Busca 50 candidatos, pre-scores inteligentemente, retorna TOP 20 evaluados",
+  "description": "Smart Apollo: Busca 50 → Pre-Score Claude → TOP 20 evaluated",
   "nodes": [
     {
       "parameters": {
@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const raw = $input.item.json;\nconst body = (raw.body && raw.body.puesto) ? raw.body : raw;\n\nconst puesto = body.puesto;\nconst industria = body.industria;\nconst pais = body.pais || 'Chile';\nconst empresas = body.empresas_referencia || [];\nconst seniority = body.seniority || 'Senior';\nconst cantidad = 50;  // ← SMART: Siempre busca 50\nconst habilidades = body.habilidades || [];\nconst enviarEmail = body.enviar_cold_email || false;\nconst plantilla = body.plantilla_email || '';\nconst etapas = body.etapas_entrevista || [];\n\nconst TEST_MODE = true;\nconst TEST_EMAIL = 'raimundo@umine.com';\n\nif (!puesto || !industria) {\n  throw new Error('Faltan campos obligatorios: puesto e industria');\n}\n\nconst searchId = 'search-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);\n\nconst seniorityMap = {\n  'Junior': 'junior', 'Semi-Senior': 'senior', 'Senior': 'senior',\n  'Lead': 'manager', 'Manager': 'manager', 'Director': 'director',\n  'VP': 'vp', 'C-Level': 'c_suite'\n};\n\nconst paisMap = {\n  'Chile': 'Chile', 'Argentina': 'Argentina', 'Colombia': 'Colombia',\n  'Mexico': 'Mexico', 'Peru': 'Peru', 'Brasil': 'Brazil',\n  'LATAM': 'South America', 'Global': ''\n};\n\nreturn {\n  json: {\n    searchId, puesto, industria,\n    pais: paisMap[pais] || pais,\n    empresas,\n    seniority: seniorityMap[seniority] || 'senior',\n    cantidad, habilidades,\n    enviarEmail: TEST_MODE ? false : enviarEmail,\n    plantilla, etapas,\n    testMode: TEST_MODE,\n    testEmail: TEST_EMAIL\n  }\n};\n"
+        "jsCode": "const raw = $input.item.json;\nconst body = (raw.body && raw.body.puesto) ? raw.body : raw;\nconst puesto = body.puesto;\nconst industria = body.industria;\nconst pais = body.pais || 'Chile';\nconst empresas = body.empresas_referencia || [];\nconst seniority = body.seniority || 'Senior';\nconst cantidad = 50;\nconst habilidades = body.habilidades || [];\nconst enviarEmail = body.enviar_cold_email || false;\nconst plantilla = body.plantilla_email || '';\nconst etapas = body.etapas_entrevista || [];\nconst TEST_MODE = true;\nconst TEST_EMAIL = 'raimundo@umine.com';\nif (!puesto || !industria) {\n  throw new Error('Faltan campos obligatorios: puesto e industria');\n}\nconst searchId = 'search-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 5);\nconst seniorityMap = {\n  'Junior': 'junior', 'Semi-Senior': 'senior', 'Senior': 'senior',\n  'Lead': 'manager', 'Manager': 'manager', 'Director': 'director',\n  'VP': 'vp', 'C-Level': 'c_suite'\n};\nconst paisMap = {\n  'Chile': 'Chile', 'Argentina': 'Argentina', 'Colombia': 'Colombia',\n  'Mexico': 'Mexico', 'Peru': 'Peru', 'Brasil': 'Brazil',\n  'LATAM': 'South America', 'Global': ''\n};\nreturn {\n  json: {\n    searchId, puesto, industria,\n    pais: paisMap[pais] || pais,\n    empresas, seniority: seniorityMap[seniority] || 'senior',\n    cantidad, habilidades,\n    enviarEmail: TEST_MODE ? false : enviarEmail,\n    plantilla, etapas,\n    testMode: TEST_MODE,\n    testEmail: TEST_EMAIL\n  }\n};"
       },
       "id": "1b0caacc-5283-4df4-b44e-8681e39fda90",
       "name": "✅ Validar y Preparar Datos",
@@ -36,98 +36,25 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"person_titles\": [\"{{ $json.puesto }}\"],\n  \"person_locations\": [\"{{ $json.pais }}\"],\n  \"page\": 1,\n  \"per_page\": 50\n}\n",
-        "options": {
-          "timeout": 120000
-        }
+        "jsonBody": "={\"person_titles\": [\"{{ $json.puesto }}\"],\"person_locations\": [\"{{ $json.pais }}\"],\"page\": 1,\"per_page\": 50}",
+        "options": {"timeout": 120000}
       },
       "id": "a3764af9-1b28-40c2-acb1-417a86672560",
       "name": "🔍 Apollo - Buscar 50 Candidatos",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [336, -48]
+    }
+  ],
+  "connections": {
+    "📥 Webhook: Nueva Búsqueda": {
+      "main": [[{"node": "✅ Validar y Preparar Datos", "type": "main", "index": 0}]]
     },
-    {
-      "parameters": {
-        "jsCode": "const apolloResponse = $input.item.json;\nconst searchData = $('✅ Validar y Preparar Datos').item.json;\nconst people = apolloResponse.people || [];\n\nif (people.length === 0) {\n  return [{\n    json: {\n      id: `cand-${searchData.searchId}-0`,\n      searchId: searchData.searchId,\n      nombre: 'Sin resultados',\n      apellido: '',\n      nombreCompleto: 'Sin resultados en Apollo',\n      cargo: searchData.puesto,\n      empresa: '',\n      email: '',\n      emailOriginal: '',\n      emailScore: 'No disponible',\n      linkedinUrl: '',\n      ubicacion: '',\n      industria: '',\n      domain: '',\n      apolloId: '',\n      estado: 'sin_resultados',\n      fechaScraping: new Date().toISOString().split('T')[0],\n      testMode: searchData.testMode || false,\n      _noResults: true\n    }\n  }];\n}\n\nconst candidatos = people.map((person, index) => {\n  const org = person.organization || {};\n  const firstName = person.first_name || '';\n  const lastName = person.last_name || person.last_name_obfuscated || '';\n\n  return {\n    id: `cand-${searchData.searchId}-${index + 1}`,\n    searchId: searchData.searchId,\n    nombre: firstName,\n    apellido: lastName,\n    nombreCompleto: `${firstName} ${lastName}`.trim() || 'Sin nombre',\n    cargo: person.title || '',\n    empresa: org.name || '',\n    email: '',\n    emailOriginal: '',\n    emailScore: 'Pendiente',\n    linkedinUrl: '',\n    ubicacion: '',\n    industria: '',\n    domain: '',\n    apolloId: person.id || '',\n    estado: 'encontrado',\n    fechaScraping: new Date().toISOString().split('T')[0],\n    testMode: searchData.testMode || false\n  };\n});\n\nreturn candidatos.map(c => ({ json: c }));\n"
-      },
-      "id": "752b3f78-351f-484a-abe4-151b09f07f43",
-      "name": "📊 Procesar Candidatos Apollo",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [560, -48]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.apollo.io/api/v1/people/match",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"id\": \"{{ $json.apolloId }}\",\n  \"first_name\": \"{{ $json.nombre }}\",\n  \"organization_name\": \"{{ $json.empresa }}\"\n}",
-        "options": {
-          "timeout": 30000
-n        }\n      },\n      "id": "13f2b795-ad29-4c7b-9caf-c3e6f6023276",\n      "name": "🔬 Apollo - Enriquecer Perfil",\n      "type": "n8n-nodes-base.httpRequest",\n      "typeVersion": 4.2,\n      "position": [784, -48],\n      "onError": "continueRegularOutput"\n    },\n    {\n      "parameters": {\n        "mode": "runOnceForEachItem",\n        "jsCode": "const enrichData = $input.item.json;\nconst candidato = $('📊 Procesar Candidatos Apollo').item.json;\nconst searchData = $('✅ Validar y Preparar Datos').item.json;\n\nif (candidato._noResults || !candidato.apolloId) {\n  return { json: { ...candidato, perfilEnriquecido: false } };\n}\n\nconst person = enrichData.person || {};\nconst org = person.organization || {};\n\nconst realLastName = person.last_name || candidato.apellido || '';\nconst realFirstName = person.first_name || candidato.nombre || '';\nconst realEmail = person.email || '';\nconst realLinkedin = person.linkedin_url || '';\nconst city = person.city || '';\nconst state = person.state || '';\nconst country = person.country || '';\nconst ubicacion = city ? `${city}, ${state || country}`.replace(/, $/, '') : (country || '');\nconst domain = org.primary_domain || '';\nconst industry = org.industry || '';\n\nconst emailOriginal = realEmail;\nlet emailParaUsar = realEmail;\nlet emailScore = 'No disponible';\n\nif (realEmail) {\n  emailScore = 'Verificado';\n  emailParaUsar = searchData.testMode ? searchData.testEmail : realEmail;\n} else if (domain && realFirstName) {\n  const first = realFirstName.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n  const last = realLastName.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n  emailParaUsar = searchData.testMode ? searchData.testEmail : `${first}.${last}@${domain}`;\n  emailScore = 'Sugerido';\n}\n\nconst employmentHistory = (person.employment_history || []).map(job => ({\n  titulo: job.title || '',\n  empresa: job.organization_name || '',\n  inicio: job.start_date || '',\n  fin: job.end_date || 'Actual',\n  descripcion: job.description || ''\n}));\n\nconst education = (person.education || []).map(edu => ({\n  institucion: edu.school_name || edu.organization_name || '',\n  titulo: edu.degree || '',\n  campo: edu.field_of_study || '',\n  anio: edu.end_date || ''\n}));\n\nconst skills = person.skills || [];\nconst seniority = person.seniority || '';\nconst departments = person.departments || [];\nconst headline = person.headline || '';\nconst bio = person.bio || '';\nconst numEmployees = org.estimated_num_employees || '';\nconst orgIndustry = org.industry || industry;\nconst orgDescription = org.short_description || '';\n\nconst fullName = `${realFirstName} ${realLastName}`.trim();\nconst safeName = (fullName && fullName !== 'undefined' && !fullName.includes('undefined')) \n  ? fullName \n  : (candidato.nombreCompleto || 'Sin nombre');\n\nreturn {\n  json: {\n    id: candidato.id,\n    searchId: candidato.searchId,\n    nombre: realFirstName || candidato.nombre || 'Sin nombre',\n    apellido: realLastName || candidato.apellido || '',\n    nombreCompleto: safeName,\n    cargo: person.title || candidato.cargo,\n    empresa: org.name || candidato.empresa,\n    email: emailParaUsar,\n    emailOriginal: emailOriginal,\n    emailScore: emailScore,\n    linkedinUrl: realLinkedin,\n    ubicacion: ubicacion,\n    industria: orgIndustry,\n    domain: domain,\n    apolloId: candidato.apolloId,\n    estado: 'encontrado',\n    fechaScraping: candidato.fechaScraping,\n    testMode: candidato.testMode,\n    headline,\n    bio,\n    seniority,\n    departments: departments.join(', '),\n    skills: skills.join(', '),\n    employmentHistory: JSON.stringify(employmentHistory),\n    education: JSON.stringify(education),\n    orgIndustry,\n    orgDescription,\n    orgSize: numEmployees,\n    perfilEnriquecido: true\n  }\n};\n"
-      },
-      "id": "fc432b0e-d3b3-4dbb-ace1-0a8fb7be3fc8",
-      "name": "📋 Procesar Perfil Enriquecido",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [992, -48]
-    },
-    {
-      "parameters": {
-        "jsCode": "// 🎯 SMART FILTER: Pre-Scoring para seleccionar TOP 20\nconst allCandidates = $input.all().map(item => item.json);\nconst searchData = $('✅ Validar y Preparar Datos').first().json;\n\n// Si ya hay ≤20, no es necesario filtrar\nif (allCandidates.length <= 20) {\n  return allCandidates.map(c => ({ json: { ...c, preScored: false, reason: 'Total≤20' } }));\n}\n\n// Crear resumen rápido de candidatos para Claude\nconst candidatosResumen = allCandidates.map((c, i) => `\n${i + 1}. ${c.nombreCompleto} (${c.apolloId})\n   Cargo: ${c.cargo || 'N/A'} @ ${c.empresa || 'N/A'}\n   Skills: ${(c.skills || '').substring(0, 80)}\n   Seniority: ${c.seniority || 'N/A'}\n   Ubicación: ${c.ubicacion || 'N/A'}\n`).join('\\n');\n\nconst preScorePrompt = `Eres un headhunter de élite. Tienes ${allCandidates.length} candidatos para evaluar, pero necesitas filtrar solo los TOP 20 mejores para evaluación detallada.\n\nPUESTO BUSCADO: ${searchData.puesto}\nINDUSTRIA: ${searchData.industria}\nSENIORITY: ${searchData.seniority}\nHABILIDADES REQUERIDAS: ${(searchData.habilidades || []).join(', ') || 'No especificadas'}\n\nCANDIDATOS (${allCandidates.length} total):\n${candidatosResumen}\n\nTAREA: Retorna SOLO los IDs Apollo de los TOP 20 candidatos que mejor encajen con el perfil.\n\nCRITERIOS:\n1. Match con el puesto/cargo\n2. Seniority adecuado\n3. Experiencia relevante en industria\n4. Skills requeridos\n5. Potencial de fit cultural\n\nRESPUESTA: JSON array SOLO con IDs Apollo [\"id1\", \"id2\", ...] SIN EXPLICACIONES NI MARKDOWN.\nSé selectivo. Solo retorna los 20 mejores.`;\n\nreturn {\n  json: {\n    preScorePrompt,\n    candidatos: allCandidates,\n    totalCandidatos: allCandidates.length\n  }\n};\n"
-      },
-      "id": "pre-score-generator",
-      "name": "🎯 Generar Pre-Score Prompt",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1200, -48]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.anthropic.com/v1/messages",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "x-api-key",
-              "value": "={{ $env.ANTHROPIC_API_KEY }}"
-            },
-            {
-              "name": "anthropic-version",
-              "value": "2023-06-01"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-haiku-4-5-20251001\",\n  \"max_tokens\": 2000,\n  \"messages\": [{\"role\": \"user\", \"content\": {{ JSON.stringify($json.preScorePrompt) }} }]\n}\n",
-        "options": {
-          "timeout": 60000
-        }
-      },
-      "id": "pre-score-request",
-      "name": "🔍 Claude Pre-Score API",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1440, -48]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Parsear respuesta de Claude y filtrar TOP 20\nconst aiResponse = $input.first().json;\nconst allCandidates = $('🎯 Generar Pre-Score Prompt').first().json.candidatos;\n\nconst responseText = aiResponse.content?.[0]?.text || '[]';\nlet topApolloIds = [];\n\ntry {\n  // Limpiar respuesta\n  const cleaned = responseText\n    .replace(/```json\\n?/g, '')\n    .replace(/```\\n?/g, '')\n    .replace(/^[^\\[]*/, '')\n    .replace(/[^\\]]*$/, '')\n    .trim();\n  \n  topApolloIds = JSON.parse(cleaned);\n  \n  if (!Array.isArray(topApolloIds)) {\n    topApolloIds = [topApolloIds];\n  }\n} catch (e) {\n  // Fallback: retornar primeros 20 si parsing falla\n  console.warn('Pre-score parse error, using first 20:', e.message);\n  topApolloIds = allCandidates.slice(0, 20).map(c => c.apolloId);\n}\n\n// Filtrar candidatos por IDs retornados\nconst filtered = allCandidates.filter(c => topApolloIds.includes(c.apolloId));\n\n// Garantizar 20, rellenar con los restantes si es necesario\nconst final = filtered.length >= 20 \n  ? filtered.slice(0, 20)\n  : [\n      ...filtered,\n      ...allCandidates.filter(c => !topApolloIds.includes(c.apolloId)).slice(0, 20 - filtered.length)\n    ];\n\nreturn final.map(c => ({ json: { ...c, preScored: true, filterMethod: 'claude-smart' } }));\n"
-      },
-      "id": "pre-score-filter",\n      "name": "🎯 Filtrar TOP 20",\n      "type": "n8n-nodes-base.code",\n      "typeVersion": 2,\n      "position": [1680, -48]\n    },\n    {\n      "parameters": {\n        "aggregate": "aggregateAllItemData",\n        "options": {}\n      },\n      "type": "n8n-nodes-base.aggregate",\n      "typeVersion": 1,\n      "position": [1900, 0],\n      "id": "139d7250-ab12-4e71-8c45-632d0d656577",\n      "name": "Aggregate"\n    },\n    {\n      "parameters": {\n        "jsCode": "const aggregated = $input.first().json.data;\nconst searchData = $('✅ Validar y Preparar Datos').first().json;\n\nconst candidatosText = aggregated.map((c, i) => `\n--- CANDIDATO ${i + 1} ---\nNombre: ${c.nombreCompleto}\nCargo actual: ${c.cargo}\nEmpresa: ${c.empresa}\nIndustria empresa: ${c.orgIndustry || ''}\nUbicación: ${c.ubicacion}\nHeadline: ${c.headline || ''}\nSkills: ${c.skills || ''}\nSeniority: ${c.seniority || ''}\nEmployment History: ${c.employmentHistory || '[]'}\nEducation: ${c.education || '[]'}\nApollo ID: ${c.apolloId}\n`).join('\\n');\n\nconst prompt = `Eres un headhunter de élite de clase mundial, con la experiencia y visión estratégica de los mejores reclutadores de Spencer Stuart, Heidrick & Struggles y Egon Zehnder. Tu misión es evaluar candidatos con precisión quirúrgica.\n\nPUESTO BUSCADO: ${searchData.puesto}\nINDUSTRIA: ${searchData.industria}\nSENIORITY REQUERIDO: ${searchData.seniority}\nHABILIDADES REQUERIDAS: ${JSON.stringify(searchData.habilidades || [])}\n\nCANDIDATOS A EVALUAR (TOP 20 PRE-FILTRADOS):\n${candidatosText}\n\nPara CADA candidato, genera un análisis experto. Responde SOLO con un JSON array válido (sin markdown, sin backticks):\n[\n  {\n    \"apolloId\": \"el apollo ID del candidato\",\n    \"score_total\": 0-100,\n    \"experiencia_relevante\": 0-100,\n    \"habilidades_tecnicas\": 0-100,\n    \"seniority_fit\": 0-100,\n    \"industria_fit\": 0-100,\n    \"liderazgo\": 0-100,\n    \"cultura_fit\": 0-100,\n    \"recomendacion\": \"AVANZAR|REVISAR|RECHAZAR\",\n    \"resumen\": \"Resumen ejecutivo de 1-2 oraciones\",\n    \"fortalezas\": [\"fortaleza1\", \"fortaleza2\"],\n    \"debilidades\": [\"debilidad1\"],\n    \"preguntas_entrevista\": [\"pregunta1\", \"pregunta2\"],\n    \"apreciacion_recruiter\": \"Tu análisis profundo como headhunter de élite. 2-3 oraciones con visión de experto.\"\n  }\n]\n\nIMPORTANTE: \n- Estos 20 ya han pasado pre-screening inteligente\n- Evalúa comparativamente entre los 20\n- Sé honesto y directo\n- Los scores reflejan FIT real con el puesto\n- Tu apreciacion_recruiter debe sonar como headhunter senior hablando con el CEO`;\n\nreturn {\n  json: {\n    prompt,\n    candidatos: aggregated\n  }\n};\n"
-      },
-n      "type": "n8n-nodes-base.code",\n      "typeVersion": 2,\n      "position": [2100, 0],\n      "id": "9f69fcbd-b0de-4b9a-9416-9058cf13ac3c",\n      "name": "Code in JavaScript"\n    },\n    {\n      "parameters": {\n        "method": "POST",\n        "url": "https://api.anthropic.com/v1/messages",\n        "sendHeaders": true,\n        "headerParameters": {\n          "parameters": [\n            {\n              "name": "x-api-key",\n              "value": ""{{ $env.ANTHROPIC_API_KEY }}""\n            },\n            {\n              "name": "anthropic-version",\n              "value": "2023-06-01"\n            },\n            {\n              "name": "Content-Type",\n              "value": "application/json"\n            }\n          ]\n        },\n        "sendBody": true,\n        "specifyBody": "json",\n        "jsonBody": "={\n  \"model\": \"claude-haiku-4-5-20251001\",\n  \"max_tokens\": 8000,\n  \"messages\": [{\"role\": \"user\", \"content\": {{ JSON.stringify($json.prompt) }} }]\n}\n",\n        "options": {\n          "timeout": 120000\n        }\n      },\n      "type": "n8n-nodes-base.httpRequest",\n      "typeVersion": 4.4,\n      "position": [2300, 0],\n      "id": "99df8c16-58ec-47b3-af2d-f086c7fea145",\n      "name": "HTTP Request"\n    },\n    {\n      "parameters": {\n        "jsCode": "const aiResponse = $input.first().json;\nconst candidatos = $('Code in JavaScript').first().json.candidatos;\n\nconst rawText = aiResponse.content?.[0]?.text || '';\n\nlet scores;\ntry {\n  const cleaned = rawText.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n  scores = JSON.parse(cleaned);\n  if (!Array.isArray(scores)) scores = [scores];\n} catch (e) {\n  scores = [];\n}\n\nconst results = candidatos.map((cand, i) => {\n  const score = scores.find(s => s.apolloId === cand.apolloId) || scores[i] || {};\n  \n  return {\n    ...cand,\n    scoreTotal: score.score_total || 0,\n    scoreExperiencia: score.experiencia_relevante || 0,\n    scoreHabilidades: score.habilidades_tecnicas || 0,\n    scoreSeniority: score.seniority_fit || 0,\n    scoreIndustria: score.industria_fit || 0,\n    scoreLiderazgo: score.liderazgo || 0,\n    scoreCultura: score.cultura_fit || 0,\n    recomendacion: score.recomendacion || 'REVISAR',\n    resumenIA: score.resumen || '',\n    fortalezas: JSON.stringify(score.fortalezas || []),\n    debilidades: JSON.stringify(score.debilidades || []),\n    preguntasEntrevista: JSON.stringify(score.preguntas_entrevista || []),\n    apreciacionRecruiter: score.apreciacion_recruiter || '',\n    estado: 'evaluado',\n    fechaEvaluacion: new Date().toISOString()\n  };\n});\n\nreturn results.map(r => ({ json: r }));\n"
-      },
-      "type": "n8n-nodes-base.code",\n      "typeVersion": 2,\n      "position": [2500, -50],\n      "id": "52f78f42-f53d-4b3e-817e-ac4f192e5019",\n      "name": "Scoring + Scorecard"\n    },\n    {\n      "parameters": {\n        "jsCode": "// Collect ALL candidates into a single response\nconst allItems = $input.all();\nconst searchId = allItems[0].json.searchId || 'search-' + Date.now().toString(36);\n\nreturn [{\n  json: {\n    success: true,\n    search_id: searchId,\n    candidatos_encontrados: allItems.length,\n    candidatos: allItems.map(item => item.json),\n    filtro_aplicado: 'smart-apollo-prescore',\n    metodo: 'Búsqueda de 50 → Pre-score Claude → TOP 20 evaluados'\n  }\n}];\n"
-      },
-      "id": "2ace1482-7140-4ad5-a662-d7ebd1859561",\n      "name": "📦 Preparar Respuesta",\n      "type": "n8n-nodes-base.code",\n      "typeVersion": 2,\n      "position": [2700, -48]\n    },\n    {\n      "parameters": {\n        "respondWith": "allIncomingItems",\n        "options": {}\n      },\n      "type": "n8n-nodes-base.respondToWebhook",\n      "typeVersion": 1.5,\n      "position": [2900, -48],\n      "id": "0ea175a8-513f-4b3e-ac28-f277d0c30230",\n      "name": "Respond to Webhook"\n    }\n  ],\n  "pinData": {},\n  "connections": {\n    "📥 Webhook: Nueva Búsqueda": {\n      "main": [\n        [\n          {\n            "node": "✅ Validar y Preparar Datos",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "✅ Validar y Preparar Datos": {\n      "main": [\n        [\n          {\n            "node": "🔍 Apollo - Buscar 50 Candidatos",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "🔍 Apollo - Buscar 50 Candidatos": {\n      "main": [\n        [\n          {\n            "node": "📊 Procesar Candidatos Apollo",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "📊 Procesar Candidatos Apollo": {\n      "main": [\n        [\n          {\n            "node": "🔬 Apollo - Enriquecer Perfil",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "🔬 Apollo - Enriquecer Perfil": {\n      "main": [\n        [\n          {\n            "node": "📋 Procesar Perfil Enriquecido",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "📋 Procesar Perfil Enriquecido": {\n      "main": [\n        [\n          {\n            "node": "🎯 Generar Pre-Score Prompt",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "🎯 Generar Pre-Score Prompt": {\n      "main": [\n        [\n          {\n            "node": "🔍 Claude Pre-Score API",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "🔍 Claude Pre-Score API": {\n      "main": [\n        [\n          {\n            "node": "🎯 Filtrar TOP 20",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "🎯 Filtrar TOP 20": {\n      "main": [\n        [\n          {\n            "node": "Aggregate",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "Aggregate": {\n      "main": [\n        [\n          {\n            "node": "Code in JavaScript",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "Code in JavaScript": {\n      "main": [\n        [\n          {\n            "node": "HTTP Request",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "HTTP Request": {\n      "main": [\n        [\n          {\n            "node": "Scoring + Scorecard",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "Scoring + Scorecard": {\n      "main": [\n        [\n          {\n            "node": "📦 Preparar Respuesta",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    },\n    "📦 Preparar Respuesta": {\n      "main": [\n        [\n          {\n            "node": "Respond to Webhook",\n            "type": "main",\n            "index": 0\n          }\n        ]\n      ]\n    }\n  },\n  "active": false,\n  "settings": {\n    "executionOrder": "v1",\n    "binaryMode": "separate",\n    "availableInMCP": false\n  },\n  "versionId": "v18.0-smart-apollo",\n  "meta": {\n    "description": "Smart Apollo: 50 → Pre-Score Claude → TOP 20 evaluated"\n  },\n  "tags": [\n    {\n      "id": "rGZuoVA1XnSPAXzD",\n      "name": "Headhunting"\n    },\n    {\n      "id": "s4io8ccIfGYzMGAn",\n      "name": "UMINE"\n    },\n    {\n      "id": "smart-apollo-v2",\n      "name": "Smart Apollo v2.0"\n    }\n  ]\n}\n
+    "✅ Validar y Preparar Datos": {
+      "main": [[{"node": "🔍 Apollo - Buscar 50 Candidatos", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {"executionOrder": "v1", "binaryMode": "separate"},
+  "versionId": "v18.0-smart-apollo"
+}
